@@ -11,3 +11,8 @@ spark.createDataFrame(data).toDF("date","increment") \
     .select(col("date"),col("increment"), \
       expr("add_months(to_date(date,'yyyy-MM-dd'),cast(increment as int))").alias("inc_date")) \
     .show()
+
+
+#也可以这样执行
+(spark.createDataFrame(data).toDF("date","increment")\
+ .select("date","increment",expr("add_months(date,increment)").alias("inc_date")).show())
